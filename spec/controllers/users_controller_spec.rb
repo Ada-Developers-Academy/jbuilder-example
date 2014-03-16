@@ -40,4 +40,18 @@ describe UsersController do
       expect(response.status).to eq 201
     end
   end
+  
+  describe "DELETE 'destroy'" do
+    let!(:user) { User.create(attrs)}
+    
+    it "returns no content" do
+      delete :destroy, id: user.id, format: :json
+      expect(response.body).to be_blank
+      expect(response.status).to eq 204
+    end
+    
+    it "destroys a record" do 
+      expect { delete :destroy, id: user.id, format: :json }.to change(User, :count).by(-1)
+    end
+  end
 end
