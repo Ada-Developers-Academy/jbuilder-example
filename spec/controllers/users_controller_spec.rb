@@ -24,6 +24,7 @@ describe UsersController do
   
   describe "POST 'create'" do 
     let(:request) { post :create, user: attrs, format: :json }
+    
     it "creates a user" do
       expect { request }.to change(User, :count).by(1)
     end
@@ -32,6 +33,11 @@ describe UsersController do
       request
       attrs.merge!(id: assigns(:user).id)
       expect(response.body).to eq(attrs.to_json)
+    end
+    
+    it "returns a 201" do
+      request
+      expect(response.status).to eq 201
     end
   end
 end

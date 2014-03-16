@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params.require(:user).permit(:username, :email))
     if @user.save
-      render "show"
+      render "show", status: :created
     else
       
     end
