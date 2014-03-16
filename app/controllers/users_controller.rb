@@ -21,4 +21,13 @@ class UsersController < ApplicationController
     @user.destroy
     render json: "", status: :no_content
   end
+  
+  def update
+    @user = User.find(params[:id])
+    if @user.update(params.require(:user).permit(:username, :email))
+      render "show"
+    else
+      
+    end
+  end
 end

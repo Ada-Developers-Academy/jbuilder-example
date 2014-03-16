@@ -54,4 +54,12 @@ describe UsersController do
       expect { delete :destroy, id: user.id, format: :json }.to change(User, :count).by(-1)
     end
   end
+  
+  describe "PATCH 'update'" do
+    let!(:user) { User.create(attrs)}
+    it "returns json" do
+      patch :update, id: user.id, user: {username: "z"}, format: :json
+      expect(response.body).to eq attrs.merge(username: "z").to_json
+    end
+  end
 end
